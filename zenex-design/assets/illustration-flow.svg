@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="rgba(11, 17, 32, 0.07)"></circle>
+    </pattern>
+    <linearGradient id="line-jade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00D4A0" stop-opacity="0.15"></stop>
+      <stop offset="0.5" stop-color="#00D4A0" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="#00D4A0" stop-opacity="0.15"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="#FAFAF7"></rect>
+  <rect width="800" height="500" fill="url(#dots)"></rect>
+
+  
+  <path d="M 80 100 C 220 100, 220 250, 360 250 S 560 100, 720 100" stroke="url(#line-jade)" stroke-width="2" fill="none"></path>
+  <path d="M 80 250 C 220 250, 220 380, 360 380 S 560 250, 720 250" stroke="rgba(11,17,32,0.18)" stroke-width="1.5" fill="none" stroke-dasharray="3 4"></path>
+  <path d="M 80 400 C 220 400, 220 150, 360 150 S 560 400, 720 400" stroke="rgba(11,17,32,0.18)" stroke-width="1.5" fill="none" stroke-dasharray="3 4"></path>
+
+  
+  <g>
+    <rect x="60" y="80" width="40" height="40" rx="10" fill="#FFFFFF" stroke="rgba(11,17,32,0.10)"></rect>
+    <circle cx="80" cy="100" r="5" fill="#0B1120"></circle>
+
+    <rect x="340" y="230" width="40" height="40" rx="10" fill="#0B1120"></rect>
+    <circle cx="360" cy="250" r="5" fill="#00D4A0"></circle>
+
+    <rect x="700" y="80" width="40" height="40" rx="10" fill="#FFFFFF" stroke="rgba(11,17,32,0.10)"></rect>
+    <circle cx="720" cy="100" r="5" fill="#0B1120"></circle>
+
+    <rect x="60" y="380" width="40" height="40" rx="10" fill="#FFFFFF" stroke="rgba(11,17,32,0.10)"></rect>
+    <circle cx="80" cy="400" r="5" fill="#0B1120"></circle>
+
+    <rect x="700" y="230" width="40" height="40" rx="10" fill="#FFFFFF" stroke="rgba(11,17,32,0.10)"></rect>
+    <circle cx="720" cy="250" r="5" fill="#0B1120"></circle>
+  </g>
+</svg>

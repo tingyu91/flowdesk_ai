@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="preview.css">
+<style>
+.input { font-family: var(--font-sans); font-size: 14px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-elev-1); color: var(--fg-1); width: 100%; box-sizing: border-box;}
+.input::placeholder { color: var(--fg-3);}
+.field-label { font-size: 12px; font-weight: 500; color: var(--fg-2); margin-bottom: 6px; display: block;}
+</style>
+</head><body>
+<div class="card">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 14px;">
+    <div>
+      <label class="field-label">Work email</label>
+      <input class="input" type="email" placeholder="you@company.com" value="">
+    </div>
+    <div>
+      <label class="field-label">Team size</label>
+      <input class="input" type="text" placeholder="Select…" style="box-shadow: 0 0 0 3px rgba(0, 212, 160, 0.35); border-color: var(--jade-500);" value="50 – 200">
+    </div>
+    <div>
+      <label class="field-label">Phone</label>
+      <input class="input" type="text" placeholder="+1 555…" style="border-color: var(--coral-500); background: var(--danger-bg);" value="not a phone">
+      <div style="font-size:12px; color: var(--coral-600); margin-top: 4px;">Please enter a valid phone number.</div>
+    </div>
+    <div>
+      <label class="field-label">Company (disabled)</label>
+      <input class="input" type="text" value="Flowdesks Inc." disabled style="opacity:0.5; cursor:not-allowed; background: var(--bg-sunken);">
+    </div>
+  </div>
+</div>
+</body></html>

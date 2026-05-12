@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="preview.css">
+<style>
+  /* ----- Button system ----- */
+  .btn {
+    --bg: var(--bg-elev-1);
+    --fg: var(--fg-1);
+    --br: var(--border);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    padding: 11px 18px;
+    border-radius: var(--radius-md);
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--br);
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      background 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      color 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 212, 160, 0.35); }
+  .btn .arrow { transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1); display: inline-flex; }
+
+  /* PRIMARY — arrow nudge + soft jade halo on hover */
+  .btn-primary {
+    --bg: var(--jade-400);
+    --fg: var(--ink-950);
+    --br: transparent;
+    box-shadow: 0 0 0 0 rgba(0, 212, 160, 0);
+  }
+  .btn-primary:hover {
+    --bg: var(--jade-500);
+    box-shadow: 0 10px 24px -8px rgba(0, 212, 160, 0.55), 0 2px 6px rgba(0, 180, 136, 0.18);
+  }
+  .btn-primary:hover .arrow { transform: translateX(4px); }
+  .btn-primary:active { --bg: var(--jade-600); box-shadow: 0 0 0 0 rgba(0, 212, 160, 0); }
+
+  /* SECONDARY — chevron reveals from the right edge */
+  .btn-secondary {
+    --bg: var(--bg-elev-1);
+    padding-right: 18px;
+  }
+  .btn-secondary .chev {
+    display: inline-flex;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-left: 0;
+    color: var(--accent-soft-fg);
+    transition:
+      width 280ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      margin-left 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-secondary:hover {
+    --bg: var(--bg-sunken);
+    --br: var(--border-strong);
+  }
+  .btn-secondary:hover .chev {
+    width: 14px;
+    opacity: 1;
+    margin-left: 6px;
+  }
+
+  /* GHOST — pill background fades in from left */
+  .btn-ghost { --bg: transparent; --br: transparent; }
+  .btn-ghost::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--bg-sunken);
+    transform: translateX(-100%);
+    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+  }
+  .btn-ghost:hover::before { transform: translateX(0); }
+
+  /* DANGER — soft coral glow */
+  .btn-danger {
+    --bg: var(--coral-500); --fg: white; --br: transparent;
+  }
+  .btn-danger:hover {
+    --bg: var(--coral-600);
+    box-shadow: 0 8px 20px -6px rgba(245, 87, 63, 0.5);
+  }
+
+  /* ICON BUTTON — rotating border on hover */
+  .btn-icon {
+    --bg: var(--bg-elev-1);
+    width: 38px; height: 38px;
+    padding: 0;
+    border-radius: var(--radius-md);
+    justify-content: center;
+  }
+  .btn-icon svg { transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .btn-icon:hover { --br: var(--ink-900); --bg: var(--bg-sunken); }
+  .btn-icon:hover svg { transform: rotate(90deg); }
+
+  /* SHIMMER — sweep on hover */
+  .btn-shimmer {
+    --bg: var(--ink-900); --fg: var(--bone-100); --br: transparent;
+  }
+  .btn-shimmer::before {
+    content: '';
+    position: absolute; top: 0; bottom: 0; width: 60%;
+    left: -80%;
+    background: linear-gradient(100deg, transparent 30%, rgba(0, 212, 160, 0.35) 50%, transparent 70%);
+    transition: left 720ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+  .btn-shimmer:hover::before { left: 130%; }
+
+  /* PROGRESS — fills jade left→right on click */
+  .btn-progress {
+    --bg: var(--bg-elev-1);
+    --fg: var(--fg-1);
+  }
+  .btn-progress::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--accent);
+    transform: translateX(-100%);
+    transition: transform 1200ms cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: -1;
+  }
+  .btn-progress:hover::before { transform: translateX(0); }
+  .btn-progress:hover { --fg: var(--ink-950); --br: transparent; }
+
+  /* status row */
+  .row-label { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); letter-spacing: 0.04em; min-width: 92px; }
+</style>
+</head>
+<body>
+<div class="card" style="gap: 18px;">
+
+  <div class="row" style="gap: 14px;">
+    <span class="row-label">PRIMARY</span>
+    <button class="btn btn-primary">Book a demo <span class="arrow">→</span></button>
+    <button class="btn btn-secondary">View pricing<span class="chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></span></button>
+    <button class="btn btn-ghost">Learn more</button>
+  </div>
+
+  <div class="row" style="gap: 14px;">
+    <span class="row-label">DESTRUCTIVE</span>
+    <button class="btn btn-danger">Delete agent</button>
+    <button class="btn btn-icon" aria-label="Add">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+    <button class="btn btn-icon" aria-label="Settings">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.36.15.68.39.93.7"/></svg>
+    </button>
+  </div>
+
+  <div class="row" style="gap: 14px;">
+    <span class="row-label">ANIMATED</span>
+    <button class="btn btn-shimmer">Deploy to prod <span class="arrow">→</span></button>
+    <button class="btn btn-progress">Hold to confirm</button>
+  </div>
+
+  <div style="font-size: 12px; color: var(--fg-3); padding-top: 4px; border-top: 1px solid var(--border-subtle);">
+    Hover any button. Animations: arrow nudge · chevron reveal · curtain-fill ghost · jade halo · 90° icon rotate · shimmer sweep · progress fill. All 220–320ms easing-out, no scale transforms.
+  </div>
+</div>
+</body>
+</html>
