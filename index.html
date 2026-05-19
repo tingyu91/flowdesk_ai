@@ -441,7 +441,7 @@
         <div class="contact-details">
           <div class="row">
             <span class="arrow" aria-hidden="true">&rarr;</span>
-            <span class="mono">hello@zenexflow.ai</span>
+            <span class="mono">info@zenexflow.com</span>
           </div>
           <div class="row">
             <span class="arrow" aria-hidden="true">&rarr;</span>
@@ -542,7 +542,7 @@
     </div>
     <div class="footer-fine">
       <span>&copy; 2026 Zenex Flow. All rights reserved.</span>
-      <span class="mono">hello@zenexflow.ai</span>
+      <span class="mono">info@zenexflow.com</span>
     </div>
   </div>
 </footer>
@@ -565,11 +565,12 @@
     }
   }
 
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
     const name    = document.getElementById('inp-name').value.trim();
     const email   = document.getElementById('inp-email').value.trim();
     const company = document.getElementById('inp-company').value.trim();
+    const message = document.getElementById('inp-message').value.trim();
 
     let valid = true;
 
@@ -587,9 +588,33 @@
 
     if (!valid) return;
 
-    form.style.display = 'none';
-    successEmail.textContent = 'Reply lands at ' + email + ' within one business day.';
-    banner.style.display = 'flex';
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, company, message }),
+      });
+      if (!res.ok) throw new Error('server error');
+      form.style.display = 'none';
+      successEmail.textContent = 'Reply lands at ' + email + ' within one business day.';
+      banner.style.display = 'flex';
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Book a free consultation →';
+      const errEl = form.querySelector('.form-fields > div:last-child');
+      const existing = form.querySelector('.submit-error');
+      if (!existing) {
+        const p = document.createElement('p');
+        p.className = 'submit-error';
+        p.style.cssText = 'color:var(--coral-500);font-size:13px;margin-top:8px';
+        p.textContent = 'Something went wrong — please try again or email info@zenexflow.com directly.';
+        errEl.appendChild(p);
+      }
+    }
   });
 
   // ---- Clear field errors on input ----

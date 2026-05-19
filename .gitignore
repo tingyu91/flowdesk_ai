@@ -3,3 +3,4 @@ temporary screenshots/
 *.output
 .DS_Store
 Thumbs.db
+.env
